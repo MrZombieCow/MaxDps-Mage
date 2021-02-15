@@ -401,7 +401,8 @@ function Mage:FrostAoe()
 	--end
 
 	-- arcane_explosion,if=mana.pct>30&active_enemies>=6&!runeforge.glacial_fragments;
-	if manaPct > 30 and targets >= 6 and not runeforge[FT.GlacialFragmentsBonusId] then
+	--Need to check distance since ArcaneExplosion range is short
+	if manaPct > 30 and targets >= 6 and not runeforge[FT.GlacialFragmentsBonusId] and CheckInteractDistance("target",2) then
 		return FT.ArcaneExplosion;
 	end
 
@@ -431,12 +432,13 @@ function Mage:FrostMovement()
 	local manaPct = fd.manaPct;
 
 	-- ice_floes,if=buff.ice_floes.down;
-	if talents[FT.IceFloes] and (not buff[FT.IceFloes].up) then
+	if talents[FT.IceFloes] and (not buff[FT.IceFloes].up) and cooldown[FT.IceFloes].ready then
 		return FT.IceFloes;
 	end
 
-	-- arcane_explosion,if=mana.pct>30&active_enemies>=2;
-	if manaPct > 30 and targets >= 2 then
+	-- arcane_explosion,if=mana.pct>30&active_enemies>=2; 
+	--Need to check distance since ArcaneExplosion range is short
+	if manaPct > 30 and targets >= 2 and CheckInteractDistance("target",2) then
 		return FT.ArcaneExplosion;
 	end
 
