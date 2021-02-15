@@ -268,7 +268,7 @@ function Mage:FireCombustionPhase()
 	end
 
 	-- dragons_breath,if=buff.combustion.remains<gcd.max&buff.combustion.up;
-	if cooldown[FR.DragonsBreath].ready and buff[FR.Combustion].remains < gcd and buff[FR.Combustion].up then -- 100 OK
+	if cooldown[FR.DragonsBreath].ready and buff[FR.Combustion].remains < gcd and buff[FR.Combustion].up and CheckInteractDistance("target",2) then -- 100 OK (added distance)
 		return FR.DragonsBreath;
 	end
 
@@ -373,7 +373,7 @@ function Mage:FireRopPhase()
 	end
 
 	-- dragons_breath,if=active_enemies>2;
-	if cooldown[FR.DragonsBreath].ready and targets > 2 then
+	if cooldown[FR.DragonsBreath].ready and targets > 2 and CheckInteractDistance("target",2) then --added distance (12 yards)
 		return FR.DragonsBreath;
 	end
 
@@ -465,7 +465,7 @@ function Mage:FireStandardRotation()
 	if result then return result; end
 
 	-- dragons_breath,if=active_enemies>1;
-	if cooldown[FR.DragonsBreath].ready and targets > 1 then
+	if cooldown[FR.DragonsBreath].ready and targets > 1 and CheckInteractDistance("target",2) then --added distance
 		return FR.DragonsBreath;
 	end
 
